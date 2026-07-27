@@ -15,15 +15,6 @@
     scroll-behavior: smooth;
   }
 
-  /* ── Hide default cursor on mouse devices; keep on touch ── */
-  @media (pointer: fine) {
-    *,
-    *::before,
-    *::after {
-      cursor: none !important;
-    }
-  }
-
   body {
     @apply font-inter antialiased transition-colors duration-300;
     @apply bg-light-bg text-light-text;

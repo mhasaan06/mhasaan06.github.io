@@ -3,7 +3,7 @@ import { Toaster } from 'react-hot-toast';
 import Lenis from 'lenis';
 
 import LoadingScreen from './components/ui/LoadingScreen';
-import CustomCursor from './components/ui/CustomCursor';
+import CursorGlow from './components/ui/CursorGlow';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -56,8 +56,8 @@ export default function App() {
 
   return (
     <>
-      {/* Custom cursor — hidden on touch devices automatically */}
-        <CustomCursor />
+      {/* Background ambient cursor glow — hidden on touch devices */}
+      <CursorGlow darkMode={darkMode} />
 
         {loading && <LoadingScreen />}
 
