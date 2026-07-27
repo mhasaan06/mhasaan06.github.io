@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, CheckCircle, AlertCircle } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './ui/BrandIcons';
+import { Send, Mail, MapPin, CheckCircle, AlertCircle, ArrowUpRight } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, WhatsappIcon } from './ui/BrandIcons';
 import toast from 'react-hot-toast';
 import { supabase } from '../lib/supabase';
 
@@ -11,6 +11,13 @@ const socials = [
     value: 'mhasaan.tech@gmail.com',
     href: 'mailto:mhasaan.tech@gmail.com',
     icon: Mail,
+    color: 'terracotta',
+  },
+  {
+    label: 'WhatsApp',
+    value: '+92 326 5798528',
+    href: 'https://wa.me/923265798528?text=Hi%20Muhammad%2C%20I%27d%20like%20to%20discuss%20a%20project',
+    icon: WhatsappIcon,
     color: 'terracotta',
   },
   {
@@ -205,6 +212,49 @@ export default function Contact() {
                 );
               })}
             </div>
+
+            {/* ── Message on WhatsApp block ── */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              custom={0.45}
+              viewport={{ once: true }}
+              className="dark:bg-dark-surface bg-white border dark:border-white/10 border-black/10 rounded-2xl p-6 flex flex-col gap-4"
+              style={{ boxShadow: '0 8px 30px rgba(224,122,95,0.05)' }}
+            >
+              <div className="flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-xl bg-terracotta/10 flex items-center justify-center flex-shrink-0">
+                  <WhatsappIcon size={20} className="text-terracotta" />
+                </div>
+                <div>
+                  <p className="font-syne font-bold text-base dark:text-dark-text text-light-text leading-tight">
+                    Prefer WhatsApp?
+                  </p>
+                  <p className="font-inter text-xs dark:text-dark-muted text-light-muted mt-0.5">
+                    +92 326 5798528 · Instant chat & quick replies
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/923265798528?text=Hi%20Muhammad%2C%20I%27d%20like%20to%20discuss%20a%20project"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="no-underline"
+              >
+                <motion.button
+                  type="button"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-terracotta hover:bg-terracotta-hover text-white font-inter font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-terracotta/30"
+                >
+                  <WhatsappIcon size={16} />
+                  Message on WhatsApp
+                  <ArrowUpRight size={15} />
+                </motion.button>
+              </a>
+            </motion.div>
           </div>
 
           {/* ── Right: contact form ── */}
