@@ -289,11 +289,16 @@ export default function Hero() {
 
               {/* Photo */}
               <div className="relative w-72 h-72 rounded-full overflow-hidden border-4 border-terracotta/40 shadow-2xl shadow-terracotta/20">
-                <img
-                  src="/my_img1.png"
-                  alt="Muhammad Hasaan"
-                  className="w-full h-full object-cover object-center"
-                />
+                <picture>
+                  <source srcSet="/my_img1.webp" type="image/webp" />
+                  <img
+                    src="/my_img1.png"
+                    alt="Muhammad Hasaan"
+                    width={288}
+                    height={288}
+                    className="w-full h-full object-cover object-center"
+                  />
+                </picture>
                 {/* Photo overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-terracotta/20 to-transparent" />
               </div>

@@ -117,6 +117,7 @@ export default function CursorGlow({ darkMode = true }) {
         filter: 'blur(50px)',
         pointerEvents: 'none',
         zIndex: 0,
+        willChange: 'transform',
         x: glowX,
         y: glowY,
         translateX: '-50%',

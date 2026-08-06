@@ -73,11 +73,17 @@ export default function About() {
             >
               {/* Image frame — p-0 so image sits flush against border */}
               <div className="relative aspect-[4/5] max-w-sm rounded-2xl overflow-hidden border-4 border-terracotta/20">
-                <img
-                  src="/my_img1.png"
-                  alt="Muhammad Hasaan"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                />
+                <picture>
+                  <source srcSet="/my_img1.webp" type="image/webp" />
+                  <img
+                    src="/my_img1.png"
+                    alt="Muhammad Hasaan"
+                    loading="lazy"
+                    width={384}
+                    height={480}
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                  />
+                </picture>
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/60 via-transparent to-transparent" />
               </div>
 

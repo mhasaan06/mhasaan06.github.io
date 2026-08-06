@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 const skillGroups = [
@@ -46,7 +46,6 @@ const fadeUp = {
 };
 
 export default function Skills() {
-  const [activeGroup, setActiveGroup] = useState(null);
 
   return (
     <section id="skills" className="py-24 md:py-32 relative overflow-hidden">

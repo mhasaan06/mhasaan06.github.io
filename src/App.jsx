@@ -1,19 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Lenis from 'lenis';
 
 import LoadingScreen from './components/ui/LoadingScreen';
 import CursorGlow from './components/ui/CursorGlow';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
-import Timeline from './components/Timeline';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Certifications from './components/Certifications';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
 import ScrollProgress from './components/ui/ScrollProgress';
+
+/* ── Lazy-loaded below-the-fold sections ── */
+const About = lazy(() => import('./components/About'));
+const Timeline = lazy(() => import('./components/Timeline'));
+const Projects = lazy(() => import('./components/Projects'));
+const Skills = lazy(() => import('./components/Skills'));
+const Certifications = lazy(() => import('./components/Certifications'));
+const Contact = lazy(() => import('./components/Contact'));
+const Footer = lazy(() => import('./components/Footer'));
+
+/* Lazy-load Toaster — only needed when contact form submits */
+const Toaster = lazy(() =>
+  import('react-hot-toast').then((mod) => ({ default: mod.Toaster }))
+);
+
+/* Minimal fallback to prevent CLS — invisible div with approximate section height */
+const SectionFallback = ({ minHeight = '50vh' }) => (
+  <div style={{ minHeight }} aria-hidden="true" />
+);
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -67,38 +78,54 @@ export default function App() {
 
         <ScrollProgress />
 
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: darkMode ? '#1C1A18' : '#fff',
-              color: darkMode ? '#F1EDE9' : '#1A1815',
-              border: '1px solid rgba(224,122,95,0.3)',
-              borderRadius: '12px',
-              fontFamily: 'Inter, sans-serif',
-            },
-            success: {
-              iconTheme: { primary: '#E07A5F', secondary: '#F1EDE9' },
-            },
-            error: {
-              iconTheme: { primary: '#ef4444', secondary: '#F1EDE9' },
-            },
-          }}
-        />
+        <Suspense fallback={null}>
+          <Toaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: darkMode ? '#1C1A18' : '#fff',
+                color: darkMode ? '#F1EDE9' : '#1A1815',
+                border: '1px solid rgba(224,122,95,0.3)',
+                borderRadius: '12px',
+                fontFamily: 'Inter, sans-serif',
+              },
+              success: {
+                iconTheme: { primary: '#E07A5F', secondary: '#F1EDE9' },
+              },
+              error: {
+                iconTheme: { primary: '#ef4444', secondary: '#F1EDE9' },
+              },
+            }}
+          />
+        </Suspense>
 
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
         <main>
           <Hero darkMode={darkMode} />
-          <About />
-          <Timeline />
-          <Projects />
-          <Skills />
-          <Certifications />
-          <Contact />
+          <Suspense fallback={<SectionFallback minHeight="80vh" />}>
+            <About />
+          </Suspense>
+          <Suspense fallback={<SectionFallback minHeight="60vh" />}>
+            <Timeline />
+          </Suspense>
+          <Suspense fallback={<SectionFallback minHeight="70vh" />}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionFallback minHeight="60vh" />}>
+            <Skills />
+          </Suspense>
+          <Suspense fallback={<SectionFallback minHeight="70vh" />}>
+            <Certifications />
+          </Suspense>
+          <Suspense fallback={<SectionFallback minHeight="60vh" />}>
+            <Contact />
+          </Suspense>
         </main>
 
-        <Footer />
+        <Suspense fallback={<SectionFallback minHeight="20vh" />}>
+          <Footer />
+        </Suspense>
       </div>
     </>
   );

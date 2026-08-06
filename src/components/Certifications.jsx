@@ -91,11 +91,17 @@ export default function Certifications() {
 
                 {/* Certificate image preview */}
                 <div className="relative h-44 overflow-hidden">
-                  <img
-                    src={cert.image}
-                    alt={cert.title}
-                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                  />
+                  <picture>
+                    <source srcSet={cert.image.replace(/\.(jpg|png)$/, '.webp')} type="image/webp" />
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      loading="lazy"
+                      width={600}
+                      height={176}
+                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-gradient-to-t dark:from-dark-surface from-white via-transparent to-transparent" />
 
                   {/* Platform badge */}

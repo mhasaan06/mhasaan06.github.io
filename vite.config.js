@@ -4,4 +4,16 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/framer-motion')) return 'framer-motion';
+          if (id.includes('node_modules/@supabase')) return 'supabase';
+          if (id.includes('node_modules/react-hot-toast') || id.includes('node_modules/goober')) return 'react-hot-toast';
+          if (id.includes('node_modules/lenis')) return 'lenis';
+        },
+      },
+    },
+  },
 })
